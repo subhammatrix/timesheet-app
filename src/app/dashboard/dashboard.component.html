@@ -10,13 +10,15 @@
     <button class="btn capture-bt" (click)="capture()" [disabled]="isCaptured">Capture</button>
   </div>
   <br />
-  <div class="text-center duration-log">
+  <div class="text-center duration-log" *ngIf="startDateTime || stopDateTime">
     <span *ngIf="startDateTime">{{ startDateTime }}</span>
     <span *ngIf="stopDateTime">{{ ' - ' + stopDateTime }}</span>
   </div>
   <br />
   <br />
   <!-- {{ form.value | json }} -->
+  <button *ngIf="startDateTime || stopDateTime" type="submit" class="btn btn-danger btn-sm pull-right"
+    (click)="reset()">Reset</button>
   <div class="alert alert-danger" *ngIf="form.errors">
     Please fillup all the fields to save the data.
   </div>
@@ -28,7 +30,7 @@
             <th scope="col">Date</th>
             <th scope="col">From</th>
             <th scope="col">To</th>
-            <!-- <th scope="col">Duration</th> -->
+            <th scope="col">Duration</th>
             <th scope="col">Project</th>
             <th scope="col">Module</th>
             <th scope="col">Function</th>
@@ -42,7 +44,7 @@
             <th scope="row">{{ t.date | date:"MM/dd/yyyy" }}</th>
             <td>{{ t.date + ' ' + t.fromTime | date: "shortTime" }}</td>
             <td>{{ t.date + ' ' + t.toTime | date: "shortTime" }}</td>
-            <!-- <td>9 hrs</td> -->
+            <td>{{ calculateDuration(t.fromTime, t.toTime) + ' hrs' }}</td>
             <td>{{ t.project }}</td>
             <td>{{ t.module }}</td>
             <td>{{ t.function }}</td>
@@ -83,11 +85,12 @@
                 </div>
               </div>
             </td>
-            <!-- <td>
+            <td>
               <div class="form-group">
-                <input type="text" class="form-control">
+                <input type="text" class="form-control"
+                  value="{{ calculateDuration(f.fromTime.value, f.toTime.value) + ' hrs' }}" readonly>
               </div>
-            </td> -->
+            </td>
             <td>
               <div class="form-group">
                 <select class="form-control" id="" formControlName="project"
@@ -156,7 +159,9 @@
                 </div>
               </div>
             </td>
-            <td><button type="submit" class="btn btn-primary btn-sm blue-bt" [disabled]="!form.valid">Save</button></td>
+            <td>
+              <button type="submit" class="btn btn-primary btn-sm blue-bt" [disabled]="!form.valid">Save</button>&nbsp;
+            </td>
           </tr>
         </tbody>
       </table>

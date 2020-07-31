@@ -17,6 +17,7 @@ export class DashboardComponent implements OnInit {
   stopDateTime: any;
   isStopDateTime = false;
   isCaptured = true;
+  duration: any;
   currentUser: User;
   timeSheets: any;
 
@@ -37,10 +38,10 @@ export class DashboardComponent implements OnInit {
   });
 
   constructor(private router: Router, private authService: AuthService, private timesheetService: TimesheetService) {
-    this.authService.currentUser.subscribe(x => {
-      this.currentUser = x;
-      if (x) {
-        this.timesheetService.getAll(x.username).subscribe(result => this.timeSheets = result);
+    this.authService.currentUser.subscribe(user => {
+      this.currentUser = user;
+      if (user) {
+        this.timesheetService.getAll(user.username).subscribe(result => this.timeSheets = result);
       }
     });
   }
@@ -55,7 +56,7 @@ export class DashboardComponent implements OnInit {
   onSubmit() {
     if (this.form.valid) {
       this.timesheetService.save(this.form.value);
-      this.form.reset();
+      this.resetForm();
     } else {
       this.form.setErrors({ invalidLogin: true });
     }
@@ -75,15 +76,26 @@ export class DashboardComponent implements OnInit {
   capture() {
     this.form.patchValue({
       date: this.formatDate(this.startDateTime),
-      fromTime: '10:00',
-      toTime: '19:00'
+      fromTime: this.formatTime(new Date(this.startDateTime).toLocaleTimeString()),
+      toTime: this.formatTime(new Date(this.stopDateTime).toLocaleTimeString())
     });
+    this.reset();
+  }
+
+  reset() {
     this.startDateTime = '';
     this.stopDateTime = '';
     this.isStartDateTime = false;
     this.isStopDateTime = false;
     this.isCaptured = true;
   }
+
+  resetForm() {
+    this.form.reset();
+    this.form.patchValue({ project: '', module: '', function: '', type: '' });
+  }
+
+  // helper functions
 
   formatDate(date) {
     const d = new Date(date);
@@ -99,23 +111,37 @@ export class DashboardComponent implements OnInit {
     return [year, month, day].join('-');
   }
 
-  timeConversion(s) {
-    const ampm = s.split(' ')[1];
-    const hours = Number(s.slice(0, 2));
-    const time = s.slice(0, -2);
-    if (ampm === 'AM') {
-      if (hours === 12) { // 12am edge-case
-        return time.replace(s.slice(0, 2), '00');
-      }
-      const timeTokens = time.split(':');
-      return timeTokens[0] + ':' + timeTokens[1];
-    } else if (ampm === 'PM') {
-      if (hours !== 12) {
-        return time.replace(s.slice(0, 2), String(hours + 12));
-      }
-      const timeTokens = time.split(':');
-      return timeTokens[0] + ':' + timeTokens[1];
+  formatTime(time) {
+    const AMPM = time.slice(-2);
+    const timeArr = time.slice(0, -2).split(':');
+    if (AMPM === 'AM' && timeArr[0] === '12') {
+      // catching edge-case of 12AM
+      timeArr[0] = '00';
+    } else if (AMPM === 'PM') {
+      // everything with PM can just be mod'd and added with 12 - the max will be 23
+      timeArr[0] = (timeArr[0] % 12) + 12;
     }
+    timeArr.splice(2, 1);
+    return timeArr.join(':');
+  }
+
+  calculateDuration(start, end) {
+    if (start && end) {
+      start = start.split(':');
+      end = end.split(':');
+      const startDate = new Date(0, 0, 0, start[0], start[1], 0);
+      const endDate = new Date(0, 0, 0, end[0], end[1], 0);
+      let diff = endDate.getTime() - startDate.getTime();
+      let hours = Math.floor(diff / 1000 / 60 / 60);
+      diff -= hours * 1000 * 60 * 60;
+      const minutes = Math.floor(diff / 1000 / 60);
+      // If using time pickers with 24 hours format, add the below line get exact hours
+      if (hours < 0) {
+        hours = hours + 24;
+      }
+      return (hours <= 9 ? '0' : '') + hours + ':' + (minutes <= 9 ? '0' : '') + minutes;
+    }
+    return '00:00';
   }
 
 }
