@@ -1,10 +1,13 @@
 ﻿﻿<div class="col">
-  <h1 class="text-center">Please use the controls below to start the timer</h1>
+  <div class="diagram">
+    <img src="../../assets/img/chart.png" alt="">
+  </div>
+  <h1 class="text-center title">Please use the controls below to start the timer</h1>
   <br />
-  <div class="d-flex justify-content-center">
-    <button class="btn btn-success" (click)="start()" [disabled]="isStartDateTime">Start</button>&nbsp;
-    <button class="btn btn-danger" (click)="stop()" [disabled]="isStopDateTime">Stop</button>&nbsp;
-    <button class="btn btn-primary" (click)="capture()" [disabled]="isCaptured">Capture</button>
+  <div class="d-flex bt-wrap">
+    <button class="btn start-bt" (click)="start()" [disabled]="isStartDateTime">Start</button>&nbsp;
+    <button class="btn stop-bt" (click)="stop()" [disabled]="isStopDateTime">Stop</button>&nbsp;
+    <button class="btn capture-bt" (click)="capture()" [disabled]="isCaptured">Capture</button>
   </div>
   <br />
   <div class="text-center">
@@ -17,7 +20,7 @@
   <div class="alert alert-danger" *ngIf="form.errors">
     Please fillup all the fields to save the data.
   </div>
-  <div class="table-responsive">
+  <div class="table-responsive table-wrap">
     <form autocomplete="off" [formGroup]="form" (ngSubmit)="onSubmit()">
       <table class="table table-bordered">
         <thead class="thead-light">
@@ -153,7 +156,7 @@
                 </div>
               </div>
             </td>
-            <td><button type="submit" class="btn btn-primary btn-sm" [disabled]="!form.valid">Save</button></td>
+            <td><button type="submit" class="btn btn-primary btn-sm blue-bt" [disabled]="!form.valid">Save</button></td>
           </tr>
         </tbody>
       </table>

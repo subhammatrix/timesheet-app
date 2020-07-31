@@ -1,7 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.css";
 @import "~font-awesome/css/font-awesome.css";
-
+body{
+  font-family: 'Roboto', sans-serif;
+}
 .container-fluid {
   padding: 20px;
+}
+.bg-dark {
+  background-color: #252631 !important;
+}
+.card-header {
+  background-color: #252631;
+  color: #fff;
+}
+login-bg{
+  /* background: url(../src/assets/img/spikes.png); */
+}
+.login-bt, .blue-bt{
+  background-color: #444bf8 !important;
 }

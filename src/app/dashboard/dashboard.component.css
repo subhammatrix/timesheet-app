@@ -1,0 +1,161 @@
+.title{
+    font-size: 20px;
+    width: 41%;
+    background: #efefef;
+    margin: 0 auto;
+    padding: 11px;
+    border-radius: 36px;
+    margin-bottom: 25px;
+}
+.start-bt {
+	position: relative;
+    color: rgba(255,255,255,1);
+    text-decoration: none;
+    background-color: rgba(219,87,5,1);
+   
+    font-weight: 700;
+    font-size: 33px;
+    display: block;
+    padding: 4px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    -webkit-box-shadow: 0px 9px 0px rgba(219,31,5,1), 0px 9px 25px rgba(0,0,0,.7);
+    -moz-box-shadow: 0px 9px 0px rgba(219,31,5,1), 0px 9px 25px rgba(0,0,0,.7);
+    box-shadow: 0px 9px 0px rgba(219,31,5,1), 0px 9px 25px rgba(0,0,0,.7);
+    margin: 0 auto;
+    width: 176px;
+    text-align: center;
+    height: 65px;
+    transition: all .1s ease;
+    text-transform: uppercase;
+	
+	-webkit-transition: all .1s ease;
+	-moz-transition: all .1s ease;
+	-ms-transition: all .1s ease;
+	-o-transition: all .1s ease;
+	transition: all .1s ease;
+}
+
+.start-bt:active {
+    -webkit-box-shadow: 0px 3px 0px rgba(219,31,5,1), 0px 3px 6px rgba(0,0,0,.9);
+    -moz-box-shadow: 0px 3px 0px rgba(219,31,5,1), 0px 3px 6px rgba(0,0,0,.9);
+    box-shadow: 0px 3px 0px rgba(219,31,5,1), 0px 3px 6px rgba(0,0,0,.9);
+    position: relative;
+    top: 6px;
+}
+
+.stop-bt{
+    position: relative;
+    color: #fff;
+    text-decoration: none;
+    background-color:rgb(37 38 49);
+   
+    font-weight: 700;
+    font-size: 33px;
+    display: block;
+    padding: 4px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    -webkit-box-shadow: 0px 9px 0px rgb(14 15 19), 0px 9px 25px rgba(0,0,0,.7);
+    -moz-box-shadow: 0px 9px 0px rgb(14 15 19), 0px 9px 25px rgba(0,0,0,.7);
+    box-shadow: 0px 9px 0px rgb(14 15 19), 0px 9px 25px rgba(0,0,0,.7);
+    margin: 0 auto;
+    width: 176px;
+    text-align: center;
+    height: 65px;
+    transition: all .1s ease;
+    text-transform: uppercase;
+	
+	-webkit-transition: all .1s ease;
+	-moz-transition: all .1s ease;
+	-ms-transition: all .1s ease;
+	-o-transition: all .1s ease;
+	transition: all .1s ease;
+}
+
+
+
+.stop-bt:active {
+    -webkit-box-shadow:0px 3px 0px rgb(14 15 19), 0px 3px 6px rgba(0,0,0,.9);
+    -moz-box-shadow: 0px 3px 0px rgb(14 15 19), 0px 3px 6px rgba(0,0,0,.9);
+    box-shadow: 0px 3px 0px rgb(14 15 19), 0px 3px 6px rgba(0,0,0,.9);
+    position: relative;
+    top: 6px;
+}
+
+.capture-bt{
+    position: relative;
+    color: rgba(255,255,255,1);
+    text-decoration: none;
+    background-color: rgb(68 75 248);
+   
+    font-weight: 700;
+    font-size: 33px;
+    display: block;
+    padding: 4px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    -webkit-box-shadow:0px 9px 0px rgb(20 26 157), 0px 9px 25px rgba(0,0,0,.7);
+    -moz-box-shadow:0px 9px 0px rgb(20 26 157), 0px 9px 25px rgba(0,0,0,.7);
+    box-shadow:0px 9px 0px rgb(20 26 157), 0px 9px 25px rgba(0,0,0,.7);
+    margin: 0 auto;
+    width: 176px;
+    text-align: center;
+    height: 65px;
+    transition: all .1s ease;
+    text-transform: uppercase;
+	
+	-webkit-transition: all .1s ease;
+	-moz-transition: all .1s ease;
+	-ms-transition: all .1s ease;
+	-o-transition: all .1s ease;
+	transition: all .1s ease;
+}
+.capture-bt:active {
+    -webkit-box-shadow:0px 3px 0px rgb(9 12 68), 0px 3px 6px rgba(0,0,0,.9);
+    -moz-box-shadow: 0px 3px 0px rgb(9 12 68), 0px 3px 6px rgba(0,0,0,.9);
+    box-shadow:0px 3px 0px rgb(9 12 68), 0px 3px 6px rgba(0,0,0,.9);
+    position: relative;
+    top: 6px;
+}
+
+.bt-wrap{
+    width:50%;
+    margin: 0 auto;
+}
+
+.table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #212529;
+    font-size: 12px;
+}
+.table .thead-light th {
+    color: #495057;
+    background-color: #e9ecef;
+    border-color: #dee2e6;
+    text-transform: uppercase;
+}
+.diagram{
+    position: absolute;
+    width: 19%;
+    margin-top: 25px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.diagram img{
+    width: 100%;
+}
+.table-wrap table thead tr th:nth-child(1){
+    width: 10%;
+}
+.table-wrap{
+    margin-top: 52px;
+}
+.duration{
+    width: 80px; 
+}

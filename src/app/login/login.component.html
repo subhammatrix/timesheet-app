@@ -4,10 +4,11 @@
   </div>
   <div class="card border-secondary">
     <h4 class="card-header ">Login</h4>
-    <div class="card-body">
+    <div class="card-body login-form">
       <form #f="ngForm" (ngSubmit)="submit(f)" autocomplete="off">
         <div class="form-group">
           <label for="username">Username</label>
+          <i class="fa fa-user" aria-hidden="true"></i>
           <input type="text" class="form-control" id="username" ngModel name="username" #username="ngModel" required
             [class.is-invalid]="username.touched && !username.valid" />
           <div class="invalid-feedback" *ngIf="username.touched && !username.valid">
@@ -18,6 +19,7 @@
         </div>
         <div class="form-group">
           <label for="password">Password</label>
+          <i class="fa fa-lock" aria-hidden="true"></i>
           <input type="password" class="form-control" id="password" ngModel name="password" #password="ngModel" required
             [class.is-invalid]="password.touched && !password.valid" />
           <div class="invalid-feedback" *ngIf="password.touched && !password.valid">
@@ -26,7 +28,7 @@
             </div>
           </div>
         </div>
-        <button class="btn btn-primary" [disabled]="!f.valid">Login</button>
+        <button class="btn btn-primary login-bt btn-block" [disabled]="!f.valid">Login</button>
         <div *ngIf="invalidLogin" class="alert alert-danger mt-3 mb-0">{{ invalidLogin.error.message }}</div>
       </form>
     </div>
