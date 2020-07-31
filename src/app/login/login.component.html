@@ -1,0 +1,34 @@
+﻿<div class="col-4 offset-md-4 mt-5">
+  <div class="alert alert-info">
+    <strong>Test User</strong> - U: brian P: 123456
+  </div>
+  <div class="card border-secondary">
+    <h4 class="card-header ">Login</h4>
+    <div class="card-body">
+      <form #f="ngForm" (ngSubmit)="submit(f)" autocomplete="off">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" class="form-control" id="username" ngModel name="username" #username="ngModel" required
+            [class.is-invalid]="username.touched && !username.valid" />
+          <div class="invalid-feedback" *ngIf="username.touched && !username.valid">
+            <div *ngIf="username.errors.required">
+              * The username field is required.
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" id="password" ngModel name="password" #password="ngModel" required
+            [class.is-invalid]="password.touched && !password.valid" />
+          <div class="invalid-feedback" *ngIf="password.touched && !password.valid">
+            <div *ngIf="password.errors.required">
+              * The password field is required.
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-primary" [disabled]="!f.valid">Login</button>
+        <div *ngIf="invalidLogin" class="alert alert-danger mt-3 mb-0">{{ invalidLogin.error.message }}</div>
+      </form>
+    </div>
+  </div>
+</div>

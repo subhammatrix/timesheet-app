@@ -1,0 +1,22 @@
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+  <div class="container-fluid">
+    <ng-template #anonymousUser>
+      <a class="navbar-brand" routerLink="/" *ngIf="">
+        <i class="fa fa-file-excel-o"></i> Time Machine TP
+      </a>
+    </ng-template>
+    <a class="navbar-brand" routerLink="/dashboard" *ngIf="currentUser; else anonymousUser">
+      <i class="fa fa-file-excel-o"></i> Time Machine TP
+    </a>
+    <ul class="navbar-nav">
+      <li ngbDropdown class="nav-item dropdown" *ngIf="currentUser">
+        <a ngbDropdownToggle class="nav-link dropdown-toggle" data-toggle="dropdown">
+          Welcome {{ currentUser.firstName }}
+        </a>
+        <div ngbDropdownMenu class="dropdown-menu">
+          <a class="dropdown-item logout" (click)="logout()">Logout</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
