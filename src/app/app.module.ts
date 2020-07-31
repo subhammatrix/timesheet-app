@@ -17,6 +17,7 @@ import { NoAccessComponent } from './no-access/no-access.component';
 // import { ErrorInterceptor } from './_helpers/error.interceptor';
 import { AuthGuard } from './_helpers/auth.guard';
 import { AuthService } from './_services/auth.service';
+import { TimesheetService } from './_services/timesheet.service';
 
 @NgModule({
   declarations: [
@@ -39,10 +40,11 @@ import { AuthService } from './_services/auth.service';
     { provide: ErrorHandler, useClass: AppErrorHandler },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    // provider used to create fake backend
+    fakeBackendProvider,
     AuthGuard,
     AuthService,
-    // provider used to create fake backend
-    fakeBackendProvider
+    TimesheetService
   ],
   bootstrap: [AppComponent]
 })

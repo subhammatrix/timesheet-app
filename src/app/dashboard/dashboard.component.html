@@ -2,12 +2,21 @@
   <h1 class="text-center">Please use the controls below to start the timer</h1>
   <br />
   <div class="d-flex justify-content-center">
-    <button class="btn btn-success">Start</button>&nbsp;
-    <button class="btn btn-danger">Stop</button>&nbsp;
-    <button class="btn btn-info">Capture</button>
+    <button class="btn btn-success" (click)="start()" [disabled]="isStartDateTime">Start</button>&nbsp;
+    <button class="btn btn-danger" (click)="stop()" [disabled]="isStopDateTime">Stop</button>&nbsp;
+    <button class="btn btn-primary" (click)="capture()" [disabled]="isCaptured">Capture</button>
+  </div>
+  <br />
+  <div class="text-center">
+    <span *ngIf="startDateTime">{{ startDateTime }}</span>
+    <span *ngIf="stopDateTime">{{ ' - ' + stopDateTime }}</span>
   </div>
   <br />
   <br />
+  <!-- {{ form.value | json }} -->
+  <div class="alert alert-danger" *ngIf="form.errors">
+    Please fillup all the fields to save the data.
+  </div>
   <div class="table-responsive">
     <form autocomplete="off" [formGroup]="form" (ngSubmit)="onSubmit()">
       <table class="table table-bordered">
@@ -16,27 +25,26 @@
             <th scope="col">Date</th>
             <th scope="col">From</th>
             <th scope="col">To</th>
-            <th scope="col">Duration</th>
+            <!-- <th scope="col">Duration</th> -->
             <th scope="col">Project</th>
             <th scope="col">Module</th>
             <th scope="col">Function</th>
             <th scope="col">Type</th>
             <th scope="col">Description</th>
-            <th scope="col">Action</th>
+            <th scope="col"></th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">30/07/2020</th>
-            <td>10.00 am</td>
-            <td>07.00 pm</td>
-            <td>9 hrs</td>
-            <td>Sunswept</td>
-            <td>Authentication</td>
-            <td>FE Development</td>
-            <td>Coding</td>
-            <td>I have worked on login and logout section with welcome dashboard</td>
-            <td></td>
+          <tr *ngFor="let t of timeSheets">
+            <th scope="row">{{ t.date | date:"MM/dd/yyyy" }}</th>
+            <td>{{ t.date + ' ' + t.fromTime | date: "shortTime" }}</td>
+            <td>{{ t.date + ' ' + t.toTime | date: "shortTime" }}</td>
+            <!-- <td>9 hrs</td> -->
+            <td>{{ t.project }}</td>
+            <td>{{ t.module }}</td>
+            <td>{{ t.function }}</td>
+            <td>{{ t.type }}</td>
+            <td colspan="2">{{ t.description }}</td>
           </tr>
           <tr>
             <th scope="row">
@@ -50,43 +58,102 @@
                 </div>
               </div>
             </th>
-            <td><input type="time"></td>
-            <td><input type="time"></td>
-            <td><input type="text"></td>
             <td>
-              <select name="" id="">
-                <option value="">-- Select Project --</option>
-                <option value="Project 1">Project 1</option>
-                <option value="Project 3">Project 2</option>
-                <option value="Project 3">Project 3</option>
-              </select>
+              <div class="form-group">
+                <input class="form-control" type="time" [class.is-invalid]="f.fromTime.touched && f.fromTime.invalid"
+                  id="fromTime" formControlName="fromTime">
+                <div class="invalid-feedback" *ngIf="f.fromTime.touched && f.fromTime.invalid">
+                  <div *ngIf="f.fromTime.errors.required">
+                    * The from field is required.
+                  </div>
+                </div>
+              </div>
             </td>
             <td>
-              <select name="" id="">
-                <option value="">-- Select Module --</option>
-                <option value="">Module 1</option>
-                <option value="">Module 2</option>
-                <option value="">Module 3</option>
-              </select>
+              <div class="form-group">
+                <input class="form-control" type="time" [class.is-invalid]="f.toTime.touched && f.toTime.invalid"
+                  id="toTime" formControlName="toTime">
+                <div class="invalid-feedback" *ngIf="f.toTime.touched && f.toTime.invalid">
+                  <div *ngIf="f.toTime.errors.required">
+                    * The to field is required.
+                  </div>
+                </div>
+              </div>
+            </td>
+            <!-- <td>
+              <div class="form-group">
+                <input type="text" class="form-control">
+              </div>
+            </td> -->
+            <td>
+              <div class="form-group">
+                <select class="form-control" id="" formControlName="project"
+                  [class.is-invalid]="f.project.touched && f.project.invalid">
+                  <option value="">-- Select Project --</option>
+                  <option *ngFor="let p of projects" value="{{ p }}">{{ p }}</option>
+                </select>
+                <div class="invalid-feedback" *ngIf="f.project.touched && f.project.invalid">
+                  <div *ngIf="f.project.errors.required">
+                    * The project field is required.
+                  </div>
+                </div>
+              </div>
             </td>
             <td>
-              <select name="" id="">
-                <option value="">-- Select Function --</option>
-                <option value="">Function 1</option>
-                <option value="">Function 2</option>
-                <option value="">Function 3</option>
-              </select>
+              <div class="form-group">
+                <select class="form-control" id="" formControlName="module"
+                  [class.is-invalid]="f.module.touched && f.module.invalid">
+                  <option value="">-- Select Module --</option>
+                  <option *ngFor="let m of modules" value="{{ m }}">{{ m }}</option>
+                </select>
+                <div class="invalid-feedback" *ngIf="f.module.touched && f.module.invalid">
+                  <div *ngIf="f.module.errors.required">
+                    * The module field is required.
+                  </div>
+                </div>
+              </div>
             </td>
             <td>
-              <select name="" id="">
-                <option value="">-- Select Type --</option>
-                <option value="">Type 1</option>
-                <option value="">Type 2</option>
-                <option value="">Type 3</option>
-              </select>
+              <div class="form-group">
+                <select class="form-control" id="" formControlName="function"
+                  [class.is-invalid]="f.function.touched && f.function.invalid">
+                  <option value="">-- Select Function --</option>
+                  <option *ngFor="let f of functions" value="{{ f }}">{{ f }}</option>
+                </select>
+                <div class="invalid-feedback" *ngIf="f.function.touched && f.function.invalid">
+                  <div *ngIf="f.function.errors.required">
+                    * The function field is required.
+                  </div>
+                </div>
+              </div>
             </td>
-            <td><textarea name="" id="" cols="40" rows="5"></textarea></td>
-            <td><button class="btn btn-primary btn-sm">Save</button></td>
+            <td>
+              <div class="form-group">
+                <select class="form-control" id="" formControlName="type"
+                  [class.is-invalid]="f.type.touched && f.type.invalid">
+                  <option value="">-- Select Type --</option>
+                  <option *ngFor="let t of types" value="{{ t }}">{{ t }}</option>
+                </select>
+                <div class="invalid-feedback" *ngIf="f.type.touched && f.type.invalid">
+                  <div *ngIf="f.type.errors.required">
+                    * The type field is required.
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div class="form-group">
+                <textarea class="form-control" id="" formControlName="description"
+                  [class.is-invalid]="f.description.touched && f.description.invalid" cols="40" rows="5">
+                </textarea>
+                <div class="invalid-feedback" *ngIf="f.description.touched && f.description.invalid">
+                  <div *ngIf="f.description.errors.required">
+                    * The description field is required.
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td><button type="submit" class="btn btn-primary btn-sm" [disabled]="!form.valid">Save</button></td>
           </tr>
         </tbody>
       </table>
