@@ -1,0 +1,14 @@
+.login-form label{
+    font-weight: bold;
+}
+.form-group{
+    position: relative;
+}
+.login-form .form-group i{
+    position: absolute;
+    left: 13px;
+    top: 42px;
+}
+.form-control{
+    text-indent: 25px;
+}

@@ -1,14 +1,17 @@
 ﻿﻿<div class="col">
-  <h1 class="text-center">Please use the controls below to start the timer</h1>
+  <div class="diagram">
+    <img src="../../assets/img/chart.png" alt="">
+  </div>
+  <h1 class="text-center title">Please use the controls below to start the timer</h1>
   <br />
-  <div class="d-flex justify-content-center">
-    <button class="btn btn-success">Start</button>&nbsp;
-    <button class="btn btn-danger">Stop</button>&nbsp;
-    <button class="btn btn-info">Capture</button>
+  <div class="d-flex bt-wrap"> 
+    <button class="btn start-bt">Start</button>
+    <button class="btn stop-bt">Stop</button>
+     <button class="btn capture-bt">Capture</button> 
   </div>
   <br />
   <br />
-  <div class="table-responsive">
+  <div class="table-responsive table-wrap">
     <form autocomplete="off" [formGroup]="form" (ngSubmit)="onSubmit()">
       <table class="table table-bordered">
         <thead class="thead-light">
@@ -56,9 +59,9 @@
             <td>
               <select name="" id="">
                 <option value="">-- Select Project --</option>
-                <option value="Project 1">Project 1</option>
-                <option value="Project 3">Project 2</option>
-                <option value="Project 3">Project 3</option>
+                <option value="Project 1">Wayaj </option>
+                <option value="Project 3">Sunswept  </option>
+                <option value="Project 3">AtEase</option>
               </select>
             </td>
             <td>
@@ -86,7 +89,7 @@
               </select>
             </td>
             <td><textarea name="" id="" cols="40" rows="5"></textarea></td>
-            <td><button class="btn btn-primary btn-sm">Save</button></td>
+            <td><button class="btn btn-primary btn-sm blue-bt">Save</button></td>
           </tr>
         </tbody>
       </table>
