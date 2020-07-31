@@ -159,3 +159,12 @@
 .duration{
     width: 80px; 
 }
+.text-center.duration-log {
+    background: #cff5db;
+    width: 37%;
+    margin: 25px auto;
+    padding: 9px 0;
+    border-radius: 30px;
+    font-weight: 600;
+    
+}

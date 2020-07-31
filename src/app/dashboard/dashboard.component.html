@@ -10,7 +10,7 @@
     <button class="btn capture-bt" (click)="capture()" [disabled]="isCaptured">Capture</button>
   </div>
   <br />
-  <div class="text-center">
+  <div class="text-center duration-log">
     <span *ngIf="startDateTime">{{ startDateTime }}</span>
     <span *ngIf="stopDateTime">{{ ' - ' + stopDateTime }}</span>
   </div>
